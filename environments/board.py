@@ -40,56 +40,56 @@ board_list= [
 class NormGrid(object):
     def __init__(self,pos:list,):
         self.pos = pos
-        self.up = self.upGrid()
-        self.down = self.downGrid()
-        self.left = self.leftGrid()
-        self.right = self.rightGrid()
+        self.connections= self._get_connections()
+        self.chess=None
 
-    ### 用于寻找方向
-    def upGrid(self):
-        if self.pos[0]==0:
-            return None
-        else:
-            return [self.pos[0]-1,self.pos[1]]
-    def downGrid(self):
-        if self.pos[0]==BOARD_LENGTH-1:
-            return None
-        else:
-            return [self.pos[0]+1,self.pos[1]]
-    def leftGrid(self):
-        if self.pos[1]==0:
-            return None
-        else:
-            return [self.pos[0],self.pos[1]-1]
-    def rightGrid(self):
-        if self.pos[1]==BOARD_LENGTH-1:
-            return None
-        else:
-            return [self.pos[0],self.pos[1]+1]
+    def _get_connections(self):
+        # 判断边界,
+        # 方向为上下左右
+        connections=[[-1,0],[1,0],[0,-1],[0,1]]
+        y = self.pos[0]
+        x = self.pos[1]
+        if y == 0:
+            connections.pop(0)
+        if y == BOARD_LENGTH:
+            connections.pop(1)
+        if x == 0:
+            connections.pop(2)
+        if x == BOARD_LENGTH:
+            connections.pop(3)
+        return connections
 
-
+    def compare(self):
 
 
 
 class CampGrid(NormGrid):
     def __init__(self,pos:list,):
         super().__init__(pos)
-        self.up = self.upGrid()
-        self.down = self.downGrid()
-        self.left = self.leftGrid()
-        self.right = self.rightGrid()
-        self.type = 'Camp'
+        self.connections = self._get_connections()
+
+    def _get_connections(self):
+        # 判断边界,
+        # 方向为上下左右
+        connections=[[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[-1,1],[1,-1],[1,1]]
+        return connections
 
 
 
 class RWayGrid(NormGrid):
     def __init__(self,pos:list,):
         super().__init__(pos)
-        self.up = self.upGrid()
-        self.down = self.downGrid()
-        self.left = self.leftGrid()
-        self.right = self.rightGrid()
-        self.type = 'RWay'
+        self.directions =[1,1,1,1]
+        self.step = [1,1,1,1]
+
+
+
+for i in dir:
+    while board_list[y,x].dir[idx]==i:
+
+
+
+
 
 
 class CWayGrid(NormGrid):
@@ -126,6 +126,12 @@ class CWayGrid(NormGrid):
 
 
 
+
+
+
+
+
+
 class XWayGrid(NormGrid):
     diretions = [[-1, -1], [-1, 1], [1, -1], [1, 1]]
     def __init__(self,pos:list,):
@@ -148,6 +154,24 @@ class XWayGrid(NormGrid):
 
 
 
+def get_railway_move():
+    board_list[x,y].direction
+    for direction in board_list[x,y].directions:
+        while board_list[x,y]
+
+
+
+
+
+
+class CHESS(object):
+    def __init__(self):
+
+        is_boom=False
+        is_eng=False
+        is_flag=False
+        is_mine=False
+        value = 0
 
 
 
@@ -155,7 +179,7 @@ class XWayGrid(NormGrid):
 
 
 
-
-
-
+def move(move):
+    if board_list[move].chess:
+        board_list[move].chess.attack()
 

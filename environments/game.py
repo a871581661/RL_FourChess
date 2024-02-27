@@ -1,4 +1,24 @@
 import numpy as np
+EnvChess2RealChess = { 1:'军棋',2:'工兵',3:'排长',4:'连长',5:'营长',6:'团长',7:'旅长',8:'师长',9:'军长',10:'司令',11:'地雷',12:'炸弹'}
+
+RealChess2EnvChess = { '军棋':1,'工兵':2,'排长':3,'连长':4,'营长':5,'团长':6,'旅长':7,'师长':8,'军长':9,'司令':10,'地雷':11,'炸弹':12}
+
+
+class GameEnv(object):
+    def __init__(self,players):
+        self.play_action_seq=[]
+        self.game_over=False
+        self.players=players
+        self.acting_player_pos=None
+    
+
+
+
+
+
+
+print(RealChess2EnvChess)
+import numpy as np
 import copy
 import time
 
