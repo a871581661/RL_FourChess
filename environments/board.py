@@ -4,8 +4,8 @@
 BOARD_LENGTH = 17
 DIRECTIONS={'left':[0,-1],'right':[0,1],'up':[-1,0],'down':[1,0]}
 
-RAILWAY_LIST = []
-
+RAILWAY_LIST = ['RWay','XWay','CWay']
+ROAD_LIST = ['Flag','Norm']
 # 列表来表示棋盘，红方在上，黑方在下。使用时需要使用深拷贝
 '''
 Norm:普通格子
@@ -40,6 +40,7 @@ board_list= [
 class NormGrid(object):
     def __init__(self,pos:list,):
         self.pos = pos
+        self.directions = None
         self.connections= self._get_connections()
         self.chess=None
 
@@ -77,17 +78,110 @@ class CampGrid(NormGrid):
 
 
 class RWayGrid(NormGrid):
+    '''
+    direction : [[0, -1], [0, 1], [-1, 0], [1, 0]], 显示存在铁路的方向
+
+    '''
     def __init__(self,pos:list,):
         super().__init__(pos)
-        self.directions =[1,1,1,1]
+        self.directions = self._get_directions()
+        self.connections = self._get_connections()
         self.step = [1,1,1,1]
+
+    def _get_directions(self):
+        directions = []
+        dirs = [[0, -1], [0, 1], [-1, 0], [1, 0]]
+        for dir in dirs:
+            if self.pos[0]+dir[0]>=BOARD_LENGTH or self.pos[1]+dir[1]>=BOARD_LENGTH:
+                continue
+            if board_list[self.pos[0]+dir[0]][self.pos[1]+dir[1]] in RAILWAY_LIST:
+                directions.append(dir)
+        return directions
+    def _get_connections(self):
+        connections = []
+        staight_ways = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+        tile_ways =[[-1, -1], [-1, 1], [1, -1], [1, 1]]
+        y,x = self.pos
+        for way in staight_ways:
+            way_y,way_x =way
+            if board_list[y+way_y][x+way_x] in ROAD_LIST:
+                connections.append(way)
+        for way in tile_ways:
+            way_y,way_x =way
+            if board_list[y+way_y][x+way_x] == 'Camp':
+                connections.append(way)
+        return connections
+
+
+
+class XWayGrid(NormGrid):
+    def __init__(self, pos: list, ):
+        '''
+        extra_diretion : xway_direction,extra_direction
+        XWay.extra_diretion = (xway_direction,extra_direction)
+        :param pos:
+        '''
+        super().__init__(pos)
+        self.directions = self._get_directions()
+        self.connections = self._get_connections()
+        self.extra_direction = self._get_extra_direction()
+        self.step = [1, 1, 1, 1]
+
+    def _get_directions(self):
+        directions = []
+        dirs = [[0, -1], [0, 1], [-1, 0], [1, 0]]
+        xway_towards= [[1, 1], [1, -1], [-1, 1], [-1,-1]]
+        for dir in dirs:
+            if self.pos[0] + dir[0] >= BOARD_LENGTH or self.pos[1] + dir[1] >= BOARD_LENGTH:
+                continue
+            if board_list[self.pos[0] + dir[0]][self.pos[1] + dir[1]] in RAILWAY_LIST:
+                directions.append(dir)
+        return directions
+
+    def _get_extra_direction(self):
+        y,x = self.pos
+        directions = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
+        for dir in directions:
+            dir_y ,dir_x = dir
+            if board_list[y+dir_y][board_list[x+dir_x]] == 'XWay':
+                xway_direction = dir
+                break
+        xway_y,xway_x = xway_direction
+        if board_list[y+xway_y][x]=='None':
+            extra_direction = [xway_y,0]
+        else:
+            extra_direction= [0,xway_x]
+        return xway_direction,extra_direction
+
+
+
+
 
 
 
 for i in dir:
-    while board_list[y,x].dir[idx]==i:
+    while board_list.chess ==  empty :
+        list.append(pos)
+
+        if board_list == xway:
 
 
+
+class CWayGrid(NormGrid):
+    def __init__(self, pos: list, ):
+        super().__init__(pos)
+        self.directions = self._get_directions()
+        self.step = [1, 1, 1, 1]
+
+    def _get_directions(self):
+        directions = []
+        dirs = [[0, -1], [0, 1], [-1, 0], [1, 0]]
+        for dir in dirs:
+            if self.pos[0] + dir[0] >= BOARD_LENGTH or self.pos[1] + dir[1] >= BOARD_LENGTH:
+                continue
+            if board_list[self.pos[0] + dir[0]][self.pos[1] + dir[1]] in RAILWAY_LIST:
+                directions.append(dir)
+        return directions
 
 
 
