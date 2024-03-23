@@ -1,9 +1,12 @@
-
 BOARD_SHAPE = 17
 BOARD_LENGTH = BOARD_SHAPE-1
-
 RAILWAY_LIST = ['RWay','XWay','CWay']
 ROAD_LIST = ['Flag','Norm']
+'''
+负责提供Grid_list,棋盘格子的初始化
+'''
+
+
 # 列表来表示棋盘，红方在上，黑方在下。使用时需要使用深拷贝
 '''
 Norm:普通格子
@@ -219,6 +222,9 @@ def creat_Grid_list():
             elif grid == 'CWay':
                 Grid_list[idy][idx] = CWayGrid([idy,idx])
 
+
+
+# 创建棋盘
 creat_Grid_list()
 
 
