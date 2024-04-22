@@ -5,7 +5,9 @@ import numpy as np
 
 
 class Game():
-    def __init__(self,):
+    def __init__(self,layout_list):
+        self.layout_list = layout_list
+        self.board_list =
 
 
 
